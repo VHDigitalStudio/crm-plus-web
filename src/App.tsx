@@ -26,6 +26,8 @@ export function App() {
             <RequireAuth>
               <AppShell />
             </RequireAuth>
+
+
           }
         >
           <Route path="/dashboard" element={<DashboardPage />} />
@@ -51,4 +53,5 @@ export function App() {
       </Routes>
     </BrowserRouter>
   );
+
 }
