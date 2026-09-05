@@ -1,29 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { logoutUseCase } from "./features/auth/container";
-import { useCurrentUser } from "./features/auth/presentation/hooks/useCurrentUser";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./features/auth/presentation/pages/LoginPage";
 import { RegisterPage } from "./features/auth/presentation/pages/RegisterPage";
 import { RequireAuth } from "./features/auth/presentation/routes/RequireAuth";
-import { Button } from "./shared/components/Button";
-
-function AuthenticatedHome() {
-  const { user } = useCurrentUser();
-  const navigate = useNavigate();
-
-  async function handleLogout() {
-    await logoutUseCase();
-    navigate("/login", { replace: true });
-  }
-
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-surface text-text">
-      <p className="text-lg">Bem-vindo, {user?.name}!</p>
-      <Button variant="ghost" onClick={handleLogout}>
-        Sair
-      </Button>
-    </div>
-  );
-}
+import { DashboardPage } from "./features/dashboard/presentation/pages/DashboardPage";
+import { AppShell } from "./app/AppShell";
+import { ComingSoonPage } from "./app/ComingSoonPage";
 
 export function App() {
   return (
@@ -31,14 +12,27 @@ export function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<RegisterPage />} />
+
         <Route
-          path="/"
           element={
             <RequireAuth>
-              <AuthenticatedHome />
+              <AppShell />
             </RequireAuth>
           }
-        />
+        >
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/processos" element={<ComingSoonPage title="Processos" />} />
+          <Route path="/clientes" element={<ComingSoonPage title="Clientes" />} />
+          <Route path="/prazos" element={<ComingSoonPage title="Prazos" />} />
+          <Route path="/tarefas" element={<ComingSoonPage title="Tarefas" />} />
+          <Route path="/documentos" element={<ComingSoonPage title="Documentos" />} />
+          <Route path="/comunicacoes" element={<ComingSoonPage title="Comunicações" />} />
+          <Route path="/notificacoes" element={<ComingSoonPage title="Notificações" />} />
+          <Route path="/perfil" element={<ComingSoonPage title="Perfil" />} />
+          <Route path="/configuracoes" element={<ComingSoonPage title="Configurações" />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

@@ -141,12 +141,16 @@ src/
 │   ├── tasks/
 │   └── dashboard/
 │
-└── shared/
-    ├── components/            // design system: Button, Input, Modal...
-    ├── hooks/
-    ├── utils/
-    └── types/
+├── shared/
+│   ├── components/            // design system: Button, Input, Modal...
+│   ├── hooks/
+│   ├── utils/
+│   └── types/
+│
+└── app/                       // composição raiz — App.tsx, AppShell, rotas de nível superior
 ```
+
+`src/app/` é a composição raiz da aplicação: `App.tsx`, o `AppShell` (layout com sidebar/topbar) e páginas de nível superior que não pertencem a nenhuma feature específica (ex.: uma página "em construção"). É o único lugar autorizado a importar de múltiplas features ao mesmo tempo para compô-las em uma tela só. `features/` e `shared/` nunca podem importar de `app/` — a dependência é sempre em uma via.
 
 Cada feature deve manter próximos os arquivos relacionados à sua funcionalidade.
 
@@ -596,6 +600,7 @@ O projeto utiliza `dependency-cruiser` (configurado em `.dependency-cruiser.cjs`
 * `presentation/` importando `infrastructure/` diretamente — deve passar por hook → caso de uso, com a instância concreta resolvida em `container.ts` da própria feature (regra `no-direct-infrastructure-in-presentation`);
 * uma feature importando `domain`/`application`/`infrastructure`/`container` internos de outra feature — comunicação entre features deve ocorrer via `shared/` ou composição no nível de rotas/páginas (regra `no-cross-feature-internals`);
 * `shared/` importando de dentro de `features/` — `shared/` deve ser agnóstico de feature (regra `shared-must-not-depend-on-features`).
+* `features/` ou `shared/` importando de `src/app/` — a composição raiz depende das features, nunca o contrário (regra `no-app-dependency-inside-features-or-shared`).
 
 (Optou-se por `dependency-cruiser` em vez de `eslint-plugin-boundaries` porque o projeto usa `oxlint`, que ainda não suporta esse plugin; `dependency-cruiser` roda como CLI independente do linter.)
 

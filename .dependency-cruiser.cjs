@@ -41,6 +41,14 @@ module.exports = {
       from: { path: "^src/shared" },
       to: { path: "^src/features" },
     },
+    {
+      name: "no-app-dependency-inside-features-or-shared",
+      severity: "error",
+      comment:
+        "src/app/ é a composição raiz (AppShell, rotas de nível superior) e depende de features/shared — a dependência nunca pode ser invertida (baseline.md, seção 3).",
+      from: { path: "^src/(features|shared)/" },
+      to: { path: "^src/app/" },
+    },
   ],
   options: {
     tsPreCompilationDeps: true,
