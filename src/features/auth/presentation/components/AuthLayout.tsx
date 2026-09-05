@@ -29,14 +29,14 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
           <span className="text-lg font-semibold tracking-wide">CRM Jurídico</span>
         </div>
 
-        <div className="relative border-l-2 border-accent pl-4">
+        <div className="relative border-l-2 border-accent/60 pl-4">
           <h2 className="text-3xl font-semibold text-text">{title}</h2>
           <p className="mt-2 max-w-sm text-sm text-text-muted">{subtitle}</p>
         </div>
       </aside>
 
       <main className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
-        <div className="w-full max-w-md rounded-xl border border-border bg-surface-card p-8 shadow-xl shadow-black/30">
+        <div className="card-surface w-full max-w-md p-8">
           {children}
         </div>
       </main>

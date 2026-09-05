@@ -11,7 +11,7 @@ export function UpdatesSection({ updates }: UpdatesSectionProps) {
   }
 
   return (
-    <div className="divide-y divide-border rounded-xl border border-border bg-surface-card">
+    <div className="card-surface divide-y divide-border/40">
       {updates.map((update) => (
         <div key={update.id} className="p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

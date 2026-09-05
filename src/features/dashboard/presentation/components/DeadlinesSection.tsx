@@ -42,7 +42,7 @@ export function DeadlinesSection({ deadlines }: DeadlinesSectionProps) {
   const sorted = [...deadlines].sort((a, b) => SITUATION_ORDER[a.situation] - SITUATION_ORDER[b.situation]);
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-border bg-surface-card">
+    <div className="card-surface overflow-x-auto">
       <table className="w-full min-w-[680px] border-collapse text-sm">
         <thead>
           <tr className="text-left text-xs text-text-muted">
@@ -54,9 +54,12 @@ export function DeadlinesSection({ deadlines }: DeadlinesSectionProps) {
             <th className="px-4 py-3 font-medium">Situação</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-border">
+        <tbody className="divide-y divide-border/40">
           {sorted.map((deadline) => (
-            <tr key={deadline.id} className={`border-l-2 ${SITUATION_STRIPE[deadline.situation]}`}>
+            <tr
+              key={deadline.id}
+              className={`border-l-2 transition-colors hover:bg-surface-elevated/40 ${SITUATION_STRIPE[deadline.situation]}`}
+            >
               <td className="px-4 py-3">
                 <p className="font-medium text-text">{deadline.taskName}</p>
                 <p className="font-mono text-xs text-text-muted">{deadline.processNumber}</p>

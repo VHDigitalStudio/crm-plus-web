@@ -29,7 +29,7 @@ export function TextField({ label, error, icon, id, type = "text", className, ..
           className={[
             "w-full rounded-lg border bg-surface-elevated px-3 py-2.5 text-text placeholder:text-text-muted/60 outline-none transition",
             "focus:ring-2",
-            error ? "border-danger focus:border-danger focus:ring-danger/30" : "border-border focus:border-accent focus:ring-accent/30",
+            error ? "border-danger/70 focus:border-danger focus:ring-danger/30" : "border-border/50 focus:border-accent focus:ring-accent/30",
             icon ? "pl-10" : "",
             isPassword ? "pr-10" : "",
             className ?? "",

@@ -32,7 +32,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   }
 
   return (
-    <ul className="flex flex-col rounded-xl border border-border bg-surface-card p-4">
+    <ul className="card-surface flex flex-col p-4">
       {activities.map((activity, index) => {
         const Icon = ACTIVITY_ICON[activity.type];
         const isLast = index === activities.length - 1;
@@ -43,7 +43,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-text-muted">
                 <Icon width={15} height={15} />
               </span>
-              {!isLast && <span className="w-px flex-1 bg-border" />}
+              {!isLast && <span className="w-px flex-1 bg-border/40" />}
             </div>
             <div className={isLast ? "" : "pb-5"}>
               <p className="text-sm text-text">{activity.description}</p>

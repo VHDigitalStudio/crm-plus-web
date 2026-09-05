@@ -18,3 +18,18 @@
 body {
   @apply bg-surface text-text antialiased;
 }
+
+@layer components {
+  .card-surface {
+    @apply rounded-xl border border-border/50 bg-surface-card shadow-lg shadow-black/20;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface-elevated) inset;
+  box-shadow: 0 0 0 1000px var(--color-surface-elevated) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
