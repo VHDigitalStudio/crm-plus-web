@@ -35,19 +35,26 @@ export function LoginPage() {
           autoComplete="email"
           required
           icon={<MailIcon />}
+          placeholder="voce@escritorio.com"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
 
-        <TextField
-          label="Senha"
-          type="password"
-          autoComplete="current-password"
-          required
-          icon={<LockIcon />}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <div className="flex flex-col gap-2">
+          <TextField
+            label="Senha"
+            type="password"
+            autoComplete="current-password"
+            required
+            icon={<LockIcon />}
+            placeholder="Digite sua senha"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Link to="/esqueci-senha" className="self-end text-sm font-medium text-accent hover:underline">
+            Esqueci minha senha
+          </Link>
+        </div>
 
         {error && (
           <p role="alert" className="text-sm text-danger">

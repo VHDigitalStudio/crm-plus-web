@@ -11,4 +11,5 @@ export interface AuthRepository {
   login(email: string, password: string): Promise<User>;
   logout(): Promise<void>;
   getCurrentUser(): Promise<User | null>;
+  requestPasswordReset(email: string): Promise<void>;
 }

@@ -37,6 +37,7 @@ export function RegisterPage() {
           autoComplete="name"
           required
           icon={<UserIcon />}
+          placeholder="Seu nome completo"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
@@ -47,6 +48,7 @@ export function RegisterPage() {
           autoComplete="email"
           required
           icon={<MailIcon />}
+          placeholder="voce@escritorio.com"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
@@ -57,6 +59,7 @@ export function RegisterPage() {
           autoComplete="new-password"
           required
           icon={<LockIcon />}
+          placeholder="Mínimo de 8 caracteres"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
@@ -67,6 +70,7 @@ export function RegisterPage() {
           autoComplete="new-password"
           required
           icon={<LockIcon />}
+          placeholder="Repita a senha"
           value={confirmPassword}
           onChange={(event) => setConfirmPassword(event.target.value)}
         />

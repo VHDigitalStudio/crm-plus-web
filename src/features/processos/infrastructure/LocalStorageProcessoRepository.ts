@@ -11,7 +11,7 @@ function offsetDate(days: number): string {
 
 let movimentacaoSeq = 0;
 
-function mov(diasAtras: number, titulo: string, descricao: string, origem = "TJSP"): MovimentacaoProcesso {
+function mov(diasAtras: number, titulo: string, descricao: string, origem = "TJSP", juiz?: string): MovimentacaoProcesso {
   movimentacaoSeq += 1;
   return {
     id: `seed-mov-${movimentacaoSeq}`,
@@ -19,6 +19,7 @@ function mov(diasAtras: number, titulo: string, descricao: string, origem = "TJS
     titulo,
     descricao,
     origem,
+    juiz,
   };
 }
 
@@ -27,6 +28,7 @@ function buildSeed(): Processo[] {
     {
       id: "p1",
       numero: "0001234-56.2025.8.26.0100",
+      clienteId: "c1",
       clienteNome: "Marcos Andrade",
       advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
@@ -34,10 +36,11 @@ function buildSeed(): Processo[] {
       comarca: "São Paulo",
       vara: "3ª Vara Cível",
       classeProcessual: "Procedimento Comum Cível",
+      area: "Cível",
       assunto: "Indenização por Danos Morais",
       partes: [
-        { papel: "Autor", nome: "Marcos Andrade" },
-        { papel: "Réu", nome: "Comércio ABC Ltda." },
+        { papel: "Autor", nome: "Marcos Andrade", documento: "123.456.789-00", tipoPessoa: "fisica" },
+        { papel: "Réu", nome: "Comércio ABC Ltda.", documento: "12.345.678/0001-00", tipoPessoa: "juridica" },
       ],
       statusJudicial: "em-andamento",
       statusInterno: "aguardando-decisao",
@@ -54,13 +57,15 @@ function buildSeed(): Processo[] {
     {
       id: "p2",
       numero: "0004521-11.2024.8.26.0002",
+      clienteId: "c2",
       clienteNome: "Comércio Silva Ltda.",
-      advogadoResponsavel: "Dr. Rafael Nunes",
+      advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
       estado: "SP",
       comarca: "São Paulo",
       vara: "2ª Vara Empresarial",
       classeProcessual: "Ação de Cobrança",
+      area: "Cível",
       assunto: "Cobrança de Duplicata",
       partes: [
         { papel: "Autor", nome: "Comércio Silva Ltda." },
@@ -80,6 +85,7 @@ function buildSeed(): Processo[] {
     {
       id: "p3",
       numero: "0007788-90.2025.8.26.0053",
+      clienteId: "c3",
       clienteNome: "Juliana Ferreira",
       advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
@@ -87,6 +93,7 @@ function buildSeed(): Processo[] {
       comarca: "Campinas",
       vara: "1ª Vara de Família",
       classeProcessual: "Divórcio Litigioso",
+      area: "Família",
       assunto: "Divórcio e Partilha de Bens",
       partes: [
         { papel: "Requerente", nome: "Juliana Ferreira" },
@@ -106,13 +113,15 @@ function buildSeed(): Processo[] {
     {
       id: "p4",
       numero: "0002210-77.2023.8.26.0100",
+      clienteId: "c1",
       clienteNome: "Marcos Andrade",
-      advogadoResponsavel: "Dr. Rafael Nunes",
+      advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
       estado: "SP",
       comarca: "São Paulo",
       vara: "5ª Câmara de Direito Privado",
       classeProcessual: "Apelação Cível",
+      area: "Cível",
       assunto: "Recurso de Apelação",
       partes: [
         { papel: "Apelante", nome: "Marcos Andrade" },
@@ -132,6 +141,7 @@ function buildSeed(): Processo[] {
     {
       id: "p5",
       numero: "0009012-34.2025.8.26.0224",
+      clienteId: "c2",
       clienteNome: "Comércio Silva Ltda.",
       advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
@@ -139,6 +149,7 @@ function buildSeed(): Processo[] {
       comarca: "Guarulhos",
       vara: "4ª Vara Cível",
       classeProcessual: "Ação de Rescisão Contratual",
+      area: "Cível",
       assunto: "Rescisão de Contrato de Fornecimento",
       partes: [
         { papel: "Autor", nome: "Comércio Silva Ltda." },
@@ -154,24 +165,26 @@ function buildSeed(): Processo[] {
     {
       id: "p6",
       numero: "0003345-22.2022.8.26.0100",
+      clienteId: "c4",
       clienteNome: "Fernanda Costa",
-      advogadoResponsavel: "Dr. Rafael Nunes",
+      advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
       estado: "SP",
       comarca: "São Paulo",
       vara: "7ª Vara Cível",
       classeProcessual: "Ação de Reparação de Danos",
+      area: "Cível",
       assunto: "Acidente de Trânsito",
       partes: [
-        { papel: "Autor", nome: "Fernanda Costa" },
-        { papel: "Réu", nome: "Transportadora Rápida Ltda." },
+        { papel: "Autor", nome: "Fernanda Costa", documento: "345.678.901-22", tipoPessoa: "fisica" },
+        { papel: "Réu", nome: "Transportadora Rápida Ltda.", documento: "45.678.901/0001-23", tipoPessoa: "juridica" },
       ],
       statusJudicial: "sentenciado",
       statusInterno: "finalizado",
       dataAbertura: offsetDate(-1200),
       ultimaAtualizacaoData: offsetDate(-60),
       movimentacoes: [
-        mov(60, "Sentença publicada", "Sentença julgou procedente o pedido de indenização."),
+        mov(60, "Sentença publicada", "Sentença julgou procedente o pedido de indenização.", "TJSP", "Dr. Marcelo Andrade Vidal"),
         mov(300, "Instrução encerrada", "Encerrada a fase de instrução processual."),
         mov(1200, "Processo distribuído", "Processo distribuído para a 7ª Vara Cível."),
       ],
@@ -180,6 +193,7 @@ function buildSeed(): Processo[] {
     {
       id: "p7",
       numero: "0005567-88.2021.8.26.0100",
+      clienteId: "c5",
       clienteNome: "Roberto Mendes",
       advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
@@ -187,6 +201,7 @@ function buildSeed(): Processo[] {
       comarca: "São Paulo",
       vara: "9ª Vara Cível",
       classeProcessual: "Execução de Título Extrajudicial",
+      area: "Cível",
       assunto: "Execução de Cheque",
       partes: [
         { papel: "Exequente", nome: "Roberto Mendes" },
@@ -206,16 +221,18 @@ function buildSeed(): Processo[] {
     {
       id: "p8",
       numero: "0006678-10.2020.8.26.0100",
+      clienteId: "c6",
       clienteNome: "Ana Beatriz Souza",
-      advogadoResponsavel: "Dr. Rafael Nunes",
+      advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
       estado: "SP",
       comarca: "Santo André",
       vara: "2ª Vara Cível",
       classeProcessual: "Ação de Usucapião",
+      area: "Cível",
       assunto: "Usucapião Extraordinária",
       partes: [
-        { papel: "Autor", nome: "Ana Beatriz Souza" },
+        { papel: "Autor", nome: "Ana Beatriz Souza", documento: "567.890.123-44", tipoPessoa: "fisica" },
         { papel: "Réu", nome: "Espólio de José Almeida" },
       ],
       statusJudicial: "arquivado",
@@ -224,7 +241,7 @@ function buildSeed(): Processo[] {
       ultimaAtualizacaoData: offsetDate(-400),
       movimentacoes: [
         mov(400, "Processo arquivado definitivamente", "Processo arquivado após trânsito em julgado."),
-        mov(600, "Sentença publicada", "Juiz reconheceu a usucapião em favor da autora."),
+        mov(600, "Sentença publicada", "Juiz reconheceu a usucapião em favor da autora.", "TJSP", "Dra. Camila Rezende Torres"),
         mov(2000, "Processo distribuído", "Processo distribuído para a 2ª Vara Cível."),
       ],
       observacoes: "",
@@ -232,6 +249,7 @@ function buildSeed(): Processo[] {
     {
       id: "p9",
       numero: "0008899-45.2025.8.26.0100",
+      clienteId: "c3",
       clienteNome: "Juliana Ferreira",
       advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
@@ -239,6 +257,7 @@ function buildSeed(): Processo[] {
       comarca: "Campinas",
       vara: "3ª Vara de Família",
       classeProcessual: "Ação de Alimentos",
+      area: "Família",
       assunto: "Fixação de Pensão Alimentícia",
       partes: [
         { papel: "Requerente", nome: "Juliana Ferreira" },
@@ -254,13 +273,15 @@ function buildSeed(): Processo[] {
     {
       id: "p10",
       numero: "0001122-33.2019.8.26.0100",
+      clienteId: "c1",
       clienteNome: "Marcos Andrade",
-      advogadoResponsavel: "Dr. Rafael Nunes",
+      advogadoResponsavel: "Dra. Beatriz Lima",
       tribunal: "TJSP",
       estado: "SP",
       comarca: "São Paulo",
       vara: "1ª Vara Cível",
       classeProcessual: "Ação Declaratória",
+      area: "Cível",
       assunto: "Declaração de Inexistência de Débito",
       partes: [
         { papel: "Autor", nome: "Marcos Andrade" },
@@ -293,7 +314,14 @@ function readAll(): Processo[] {
   }
   try {
     const parsed = JSON.parse(raw) as Processo[];
-    const isOutdatedShape = parsed.length === 0 || parsed.some((processo) => !Array.isArray(processo.movimentacoes));
+    const isOutdatedShape =
+      parsed.length === 0 ||
+      parsed.some(
+        (processo) =>
+          !Array.isArray(processo.movimentacoes) ||
+          typeof processo.clienteId !== "string" ||
+          typeof processo.area !== "string",
+      );
     return isOutdatedShape ? reseed() : parsed;
   } catch {
     return reseed();

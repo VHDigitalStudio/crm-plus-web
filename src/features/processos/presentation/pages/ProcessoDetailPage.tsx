@@ -69,12 +69,12 @@ export function ProcessoDetailPage() {
 
       <div className="card-surface grid grid-cols-1 gap-x-8 gap-y-5 p-6 sm:grid-cols-2 lg:grid-cols-3">
         <InfoField label="Cliente" value={processo.clienteNome} />
-        <InfoField label="Advogado responsável" value={processo.advogadoResponsavel} />
         <InfoField label="Tribunal" value={processo.tribunal} />
         <InfoField label="Estado" value={processo.estado} />
         <InfoField label="Comarca" value={processo.comarca} />
         <InfoField label="Vara" value={processo.vara} />
         <InfoField label="Classe processual" value={processo.classeProcessual} />
+        <InfoField label="Área" value={processo.area || "—"} />
         <InfoField label="Data de abertura" value={formatDate(processo.dataAbertura)} />
         <InfoField label="Última atualização" value={formatDate(processo.ultimaAtualizacaoData)} />
       </div>
@@ -85,6 +85,7 @@ export function ProcessoDetailPage() {
           {processo.partes.map((parte) => (
             <li key={`${parte.papel}-${parte.nome}`} className="text-base text-text">
               <span className="text-text-muted">{parte.papel}:</span> {parte.nome}
+              {parte.documento && <span className="text-sm text-text-muted"> ({parte.documento})</span>}
             </li>
           ))}
         </ul>

@@ -10,8 +10,20 @@ import { useProcesso } from "../hooks/useProcesso";
 import { type ProcessoFormValues, useSaveProcesso } from "../hooks/useSaveProcesso";
 import { STATUS_INTERNO_LABEL, STATUS_JUDICIAL_LABEL } from "../statusPresentation";
 
+export interface ClienteOption {
+  id: string;
+  nome: string;
+}
+
+interface ProcessoFormPageProps {
+  clienteOptions: ClienteOption[];
+  clienteOptionsLoading?: boolean;
+  advogadoResponsavel: string;
+}
+
 const EMPTY_VALUES: ProcessoFormValues = {
   numero: "",
+  clienteId: "",
   clienteNome: "",
   advogadoResponsavel: "",
   tribunal: "",
@@ -19,6 +31,7 @@ const EMPTY_VALUES: ProcessoFormValues = {
   comarca: "",
   vara: "",
   classeProcessual: "",
+  area: "",
   assunto: "",
   statusJudicial: "em-andamento",
   statusInterno: "novo",
@@ -30,7 +43,7 @@ function toDateInputValue(iso: string): string {
   return iso ? iso.slice(0, 10) : "";
 }
 
-export function ProcessoFormPage() {
+export function ProcessoFormPage({ clienteOptions, clienteOptionsLoading, advogadoResponsavel }: ProcessoFormPageProps) {
   const { id } = useParams<{ id: string }>();
   const isEdit = Boolean(id);
   const navigate = useNavigate();
@@ -40,26 +53,37 @@ export function ProcessoFormPage() {
 
   useEffect(() => {
     if (processo) {
-      setValues({
+      setValues((prev) => ({
+        ...prev,
         numero: processo.numero,
+        clienteId: processo.clienteId,
         clienteNome: processo.clienteNome,
-        advogadoResponsavel: processo.advogadoResponsavel,
         tribunal: processo.tribunal,
         estado: processo.estado,
         comarca: processo.comarca,
         vara: processo.vara,
         classeProcessual: processo.classeProcessual,
+        area: processo.area,
         assunto: processo.assunto,
         statusJudicial: processo.statusJudicial,
         statusInterno: processo.statusInterno,
         dataAbertura: toDateInputValue(processo.dataAbertura),
         observacoes: processo.observacoes,
-      });
+      }));
     }
   }, [processo]);
 
+  useEffect(() => {
+    setValues((prev) => ({ ...prev, advogadoResponsavel }));
+  }, [advogadoResponsavel]);
+
   function updateField<K extends keyof ProcessoFormValues>(key: K, value: ProcessoFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function handleClienteChange(clienteId: string) {
+    const cliente = clienteOptions.find((option) => option.id === clienteId);
+    setValues((prev) => ({ ...prev, clienteId, clienteNome: cliente?.nome ?? "" }));
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -102,18 +126,29 @@ export function ProcessoFormPage() {
             placeholder="0000000-00.0000.0.00.0000"
             required
           />
-          <TextField
+          <SelectField
             label="Cliente"
-            value={values.clienteNome}
-            onChange={(event) => updateField("clienteNome", event.target.value)}
+            value={values.clienteId}
+            onChange={(event) => handleClienteChange(event.target.value)}
+            disabled={clienteOptionsLoading}
             required
-          />
-          <TextField
-            label="Advogado responsável"
-            value={values.advogadoResponsavel}
-            onChange={(event) => updateField("advogadoResponsavel", event.target.value)}
-            required
-          />
+          >
+            <option value="" disabled>
+              {clienteOptionsLoading ? "Carregando clientes..." : "Selecione um cliente"}
+            </option>
+            {clienteOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.nome}
+              </option>
+            ))}
+          </SelectField>
+          <div>
+            <p className="text-sm font-medium text-text-muted">Advogado responsável</p>
+            <p className="mt-1 rounded-lg border border-border/50 bg-surface-elevated px-4 py-3 text-base text-text">
+              {advogadoResponsavel || "—"}
+            </p>
+            <p className="mt-1 text-xs text-text-muted">Atribuído automaticamente à sua conta.</p>
+          </div>
           <TextField
             label="Tribunal"
             value={values.tribunal}
@@ -132,25 +167,35 @@ export function ProcessoFormPage() {
             label="Comarca"
             value={values.comarca}
             onChange={(event) => updateField("comarca", event.target.value)}
+            placeholder="São Paulo"
             required
           />
           <TextField
             label="Vara"
             value={values.vara}
             onChange={(event) => updateField("vara", event.target.value)}
+            placeholder="3ª Vara Cível"
             required
           />
           <TextField
             label="Classe processual"
             value={values.classeProcessual}
             onChange={(event) => updateField("classeProcessual", event.target.value)}
+            placeholder="Procedimento Comum Cível"
             required
+          />
+          <TextField
+            label="Área"
+            value={values.area}
+            onChange={(event) => updateField("area", event.target.value)}
+            placeholder="Cível, Família, Trabalhista..."
           />
           <div className="sm:col-span-2">
             <TextField
               label="Assunto"
               value={values.assunto}
               onChange={(event) => updateField("assunto", event.target.value)}
+              placeholder="Descreva o assunto do processo"
               required
             />
           </div>

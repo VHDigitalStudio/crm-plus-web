@@ -22,7 +22,6 @@ export interface UpcomingDeadline {
   taskName: string;
   processNumber: string;
   clientName: string;
-  responsible: string;
   dueDate: string;
   priority: TaskPriority;
   situation: DeadlineSituation;

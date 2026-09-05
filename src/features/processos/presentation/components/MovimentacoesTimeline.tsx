@@ -32,7 +32,10 @@ export function MovimentacoesTimeline({ movimentacoes }: MovimentacoesTimelinePr
                 <p className="text-sm tabular-nums text-text-muted">{formatDate(movimentacao.data)}</p>
               </div>
               <p className="mt-1 text-sm text-text-muted">{movimentacao.descricao}</p>
-              <p className="mt-1 text-xs text-text-muted">Origem: {movimentacao.origem}</p>
+              <p className="mt-1 text-xs text-text-muted">
+                Origem: {movimentacao.origem}
+                {movimentacao.juiz && ` · Juiz(a): ${movimentacao.juiz}`}
+              </p>
             </div>
           </li>
         );

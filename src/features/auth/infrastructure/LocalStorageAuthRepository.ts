@@ -76,4 +76,13 @@ export class LocalStorageAuthRepository implements AuthRepository {
     const record = readUsers().find((user) => user.id === sessionId);
     return record ? toPublicUser(record) : null;
   }
+
+  /**
+   * Sem backend real, não há envio de e-mail de fato. Sempre resolve com
+   * sucesso (sem revelar se o e-mail existe na base), simulando o
+   * comportamento esperado de uma API de recuperação de senha.
+   */
+  async requestPasswordReset(_email: string): Promise<void> {
+    return Promise.resolve();
+  }
 }

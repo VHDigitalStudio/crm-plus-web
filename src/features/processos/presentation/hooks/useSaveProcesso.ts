@@ -4,6 +4,7 @@ import type { NovoProcessoInput, Processo, StatusInterno, StatusJudicial } from 
 
 export interface ProcessoFormValues {
   numero: string;
+  clienteId: string;
   clienteNome: string;
   advogadoResponsavel: string;
   tribunal: string;
@@ -11,6 +12,7 @@ export interface ProcessoFormValues {
   comarca: string;
   vara: string;
   classeProcessual: string;
+  area: string;
   assunto: string;
   statusJudicial: StatusJudicial;
   statusInterno: StatusInterno;
@@ -20,7 +22,7 @@ export interface ProcessoFormValues {
 
 function validate(values: ProcessoFormValues): string | null {
   if (!values.numero.trim()) return "Informe o número do processo.";
-  if (!values.clienteNome.trim()) return "Informe o cliente.";
+  if (!values.clienteId.trim()) return "Selecione o cliente.";
   if (!values.advogadoResponsavel.trim()) return "Informe o advogado responsável.";
   if (!values.tribunal.trim()) return "Informe o tribunal.";
   if (!values.estado.trim()) return "Informe o estado.";

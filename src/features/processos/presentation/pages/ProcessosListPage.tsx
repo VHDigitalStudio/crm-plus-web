@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Badge } from "../../../../shared/components/Badge";
 import { Button } from "../../../../shared/components/Button";
-import { ArrowUpDownIcon, PlusIcon, SearchIcon } from "../../../../shared/components/icons";
+import { ArrowUpDownIcon, PlusIcon, SearchIcon, XIcon } from "../../../../shared/components/icons";
 import { SelectField } from "../../../../shared/components/SelectField";
 import { TextField } from "../../../../shared/components/TextField";
 import { formatDate } from "../../../../shared/utils/formatDate";
@@ -19,19 +19,32 @@ const SORT_LABEL: Record<SortKey, string> = {
 };
 
 function matchesSearch(processo: Processo, query: string): boolean {
-  const haystack = `${processo.numero} ${processo.clienteNome} ${processo.assunto} ${processo.advogadoResponsavel}`.toLowerCase();
+  const haystack = `${processo.numero} ${processo.clienteNome} ${processo.assunto}`.toLowerCase();
   return haystack.includes(query.toLowerCase());
 }
 
 export function ProcessosListPage() {
   const { processos, loading } = useProcessos();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clienteIdFilter = searchParams.get("clienteId");
+  const clienteNomeFilter = searchParams.get("clienteNome");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusInterno | "todos">("todos");
   const [sortKey, setSortKey] = useState<SortKey>("ultimaAtualizacaoData");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
+  function clearClienteFilter() {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("clienteId");
+      next.delete("clienteNome");
+      return next;
+    });
+  }
+
   const filtered = useMemo(() => {
     const result = processos
+      .filter((processo) => (clienteIdFilter ? processo.clienteId === clienteIdFilter : true))
       .filter((processo) => (statusFilter === "todos" ? true : processo.statusInterno === statusFilter))
       .filter((processo) => matchesSearch(processo, search));
 
@@ -41,7 +54,7 @@ export function ProcessosListPage() {
     });
 
     return sorted;
-  }, [processos, search, statusFilter, sortKey, sortDirection]);
+  }, [processos, search, statusFilter, sortKey, sortDirection, clienteIdFilter]);
 
   function toggleSort(key: SortKey) {
     if (key === sortKey) {
@@ -67,11 +80,24 @@ export function ProcessosListPage() {
         </Link>
       </div>
 
+      {clienteIdFilter && (
+        <div className="flex items-center gap-2">
+          <Badge variant="accent">
+            <span className="flex items-center gap-1.5">
+              Filtrando por cliente: {clienteNomeFilter ?? clienteIdFilter}
+              <button type="button" onClick={clearClienteFilter} aria-label="Remover filtro de cliente">
+                <XIcon width={13} height={13} />
+              </button>
+            </span>
+          </Badge>
+        </div>
+      )}
+
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="flex-1">
           <TextField
             label="Pesquisar"
-            placeholder="Número, cliente, assunto ou advogado"
+            placeholder="Número, cliente ou assunto"
             icon={<SearchIcon />}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -102,7 +128,7 @@ export function ProcessosListPage() {
         </div>
       ) : (
         <div className="card-surface overflow-x-auto">
-          <table className="w-full min-w-[820px] border-collapse text-base">
+          <table className="w-full min-w-[680px] border-collapse text-base">
             <thead>
               <tr className="text-left text-sm text-text-muted">
                 {(["numero", "clienteNome"] as SortKey[]).map((key) => (
@@ -117,7 +143,6 @@ export function ProcessosListPage() {
                     </button>
                   </th>
                 ))}
-                <th className="px-5 py-3.5 font-medium">Advogado responsável</th>
                 <th className="px-5 py-3.5 font-medium">Tribunal / Comarca</th>
                 <th className="px-5 py-3.5 font-medium">Status</th>
                 <th className="px-5 py-3.5 font-medium">
@@ -142,7 +167,6 @@ export function ProcessosListPage() {
                     <p className="text-sm text-text-muted">{processo.assunto}</p>
                   </td>
                   <td className="px-5 py-4 text-text-muted">{processo.clienteNome}</td>
-                  <td className="px-5 py-4 text-text-muted">{processo.advogadoResponsavel}</td>
                   <td className="px-5 py-4">
                     <p className="text-text">{processo.tribunal}</p>
                     <p className="text-sm text-text-muted">{processo.comarca}</p>
