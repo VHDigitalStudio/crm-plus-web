@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type BadgeVariant = "neutral" | "accent" | "success" | "warning" | "danger";
+export type BadgeVariant = "neutral" | "accent" | "success" | "warning" | "danger";
 
 interface BadgeProps {
   variant?: BadgeVariant;

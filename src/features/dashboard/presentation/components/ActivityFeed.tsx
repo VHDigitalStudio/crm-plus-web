@@ -32,7 +32,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   }
 
   return (
-    <ul className="card-surface flex flex-col p-5">
+    <ul className="card-surface flex flex-1 flex-col p-5">
       {activities.map((activity, index) => {
         const Icon = ACTIVITY_ICON[activity.type];
         const isLast = index === activities.length - 1;

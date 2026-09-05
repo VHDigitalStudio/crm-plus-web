@@ -20,6 +20,12 @@ export {
   TrendingUp as TrendingUpIcon,
   Menu as MenuIcon,
   X as XIcon,
+  ChevronDown as ChevronDownIcon,
+  Search as SearchIcon,
+  Plus as PlusIcon,
+  ArrowLeft as ArrowLeftIcon,
+  ArrowUpDown as ArrowUpDownIcon,
+  Pencil as PencilIcon,
 } from "lucide-react";
 
 export function Spinner(props: SVGProps<SVGSVGElement>) {
