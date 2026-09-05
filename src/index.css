@@ -11,6 +11,8 @@
   --color-accent-strong: #f2c581;
   --color-accent-foreground: #1c1406;
   --color-danger: #f87171;
+  --color-warning: #fb923c;
+  --color-success: #4ade80;
 }
 
 body {

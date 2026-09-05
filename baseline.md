@@ -356,6 +356,8 @@ Quando aplicável, centralizar:
 
 Não criar componentes visuais duplicados com pequenas diferenças quando um componente existente pode ser estendido adequadamente.
 
+Os tokens de cor do projeto (superfície, texto, borda, accent, e as cores semânticas de status — sucesso, alerta, erro) são definidos em `src/index.css` no bloco `@theme` do Tailwind. Esse arquivo é a fonte da verdade; não redefinir cores soltas em componentes. As cores semânticas de status (`success`, `warning`, `danger`) devem ser usadas de forma consistente em toda a aplicação para representar o mesmo tipo de situação (ex.: prazo vencido, tarefa atrasada e documento rejeitado usam `danger`; prazo vencendo hoje e tarefa de prioridade alta usam `warning`; processo/tarefa concluído usa `success`) — não introduzir uma cor nova para o mesmo conceito de status em uma feature diferente.
+
 ---
 
 ## 13. Rotas
