@@ -23,12 +23,12 @@ export function RegisterPage() {
   return (
     <AuthLayout
       title="Comece agora"
-      subtitle="Crie sua conta de advogado e organize clientes, processos e prazos em um só lugar."
+      subtitle="Crie sua conta e organize clientes, processos e prazos em um só lugar."
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
         <div>
           <h1 className="text-2xl font-semibold text-text">Criar conta</h1>
-          <p className="mt-1 text-sm text-text-muted">Cadastre-se como advogado para começar.</p>
+          <p className="mt-1 text-sm text-text-muted">Cadastre-se para começar.</p>
         </div>
 
         <TextField
