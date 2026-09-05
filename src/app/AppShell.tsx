@@ -40,7 +40,7 @@ const NAV_ITEMS: NavItem[] = [
 
 function NavList({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <nav className="flex flex-col gap-1">
+    <nav className="flex flex-col gap-1.5">
       {NAV_ITEMS.map(({ label, to, icon: Icon }) => (
         <NavLink
           key={to}
@@ -48,12 +48,12 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
           onClick={onNavigate}
           className={({ isActive }) =>
             [
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition",
+              "flex items-center gap-3.5 rounded-lg px-3.5 py-2.5 text-base font-medium transition",
               isActive ? "bg-surface-elevated text-text" : "text-text-muted hover:bg-surface-elevated hover:text-text",
             ].join(" ")
           }
         >
-          <Icon width={18} height={18} />
+          <Icon width={20} height={20} />
           {label}
         </NavLink>
       ))}
@@ -72,11 +72,11 @@ export function AppShell() {
   }
 
   return (
-    <div className="min-h-screen bg-surface text-text lg:flex">
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-border/50 bg-surface-card p-5 lg:flex">
-        <div className="mb-6 flex items-center gap-2 px-1">
-          <BrandMark size={24} />
-          <span className="text-base font-semibold">CRM Jurídico</span>
+    <div className="flex h-screen flex-col overflow-hidden bg-surface text-text lg:flex-row">
+      <aside className="hidden w-72 shrink-0 flex-col overflow-y-auto border-r border-border/50 bg-surface-card p-6 lg:flex">
+        <div className="mb-7 flex items-center gap-2.5 px-1">
+          <BrandMark size={28} />
+          <span className="text-lg font-semibold">CRM Jurídico</span>
         </div>
         <NavList />
       </aside>
@@ -84,11 +84,11 @@ export function AppShell() {
       {isMobileNavOpen && (
         <div className="fixed inset-0 z-40 flex lg:hidden">
           <div className="absolute inset-0 bg-black/60" onClick={() => setMobileNavOpen(false)} />
-          <div className="relative z-10 flex w-64 flex-col border-r border-border/50 bg-surface-card p-5">
-            <div className="mb-6 flex items-center justify-between px-1">
-              <div className="flex items-center gap-2">
-                <BrandMark size={24} />
-                <span className="text-base font-semibold">CRM Jurídico</span>
+          <div className="relative z-10 flex w-72 flex-col border-r border-border/50 bg-surface-card p-6">
+            <div className="mb-7 flex items-center justify-between px-1">
+              <div className="flex items-center gap-2.5">
+                <BrandMark size={28} />
+                <span className="text-lg font-semibold">CRM Jurídico</span>
               </div>
               <button
                 type="button"
@@ -104,30 +104,30 @@ export function AppShell() {
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center justify-between gap-4 border-b border-border/50 bg-surface-card px-5 py-3.5 lg:bg-surface">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <header className="flex shrink-0 items-center justify-between gap-4 border-b border-border/50 bg-surface-card px-6 py-4 lg:bg-surface">
           <button
             type="button"
             aria-label="Abrir menu"
             onClick={() => setMobileNavOpen(true)}
             className="text-text-muted hover:text-text lg:hidden"
           >
-            <MenuIcon />
+            <MenuIcon width={22} height={22} />
           </button>
-          <span className="hidden text-sm text-text-muted lg:block">
+          <span className="hidden text-base text-text-muted lg:block">
             Olá, <span className="font-medium text-text">{user?.name}</span>
           </span>
           <button
             type="button"
             onClick={handleLogout}
-            className="ml-auto flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-text-muted transition hover:bg-surface-elevated hover:text-text"
+            className="ml-auto flex items-center gap-2 rounded-lg px-3.5 py-2 text-base font-medium text-text-muted transition hover:bg-surface-elevated hover:text-text"
           >
-            <LogOutIcon width={16} height={16} />
+            <LogOutIcon width={18} height={18} />
             Sair
           </button>
         </header>
 
-        <main className="flex-1 p-5 lg:p-8">
+        <main className="flex-1 overflow-y-auto p-6 lg:p-9">
           <Outlet />
         </main>
       </div>
