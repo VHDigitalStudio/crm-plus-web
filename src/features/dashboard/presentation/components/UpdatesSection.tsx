@@ -13,13 +13,13 @@ export function UpdatesSection({ updates }: UpdatesSectionProps) {
   return (
     <div className="card-surface divide-y divide-border/40">
       {updates.map((update) => (
-        <div key={update.id} className="p-4">
+        <div key={update.id} className="p-5">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <span className="text-sm font-medium text-text">{update.movementType}</span>
-            <span className="text-xs tabular-nums text-text-muted">{formatDate(update.date)}</span>
+            <span className="text-base font-medium text-text">{update.movementType}</span>
+            <span className="text-sm tabular-nums text-text-muted">{formatDate(update.date)}</span>
           </div>
-          <p className="mt-1 text-sm text-text-muted">{update.summary}</p>
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-muted">
+          <p className="mt-1.5 text-base text-text-muted">{update.summary}</p>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
             <span className="font-mono">{update.processNumber}</span>
             <span>{update.clientName}</span>
             <span>Origem: {update.origin}</span>

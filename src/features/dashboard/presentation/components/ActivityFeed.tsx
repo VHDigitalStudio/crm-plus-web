@@ -32,22 +32,22 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   }
 
   return (
-    <ul className="card-surface flex flex-col p-4">
+    <ul className="card-surface flex flex-col p-5">
       {activities.map((activity, index) => {
         const Icon = ACTIVITY_ICON[activity.type];
         const isLast = index === activities.length - 1;
 
         return (
-          <li key={activity.id} className="flex gap-3">
+          <li key={activity.id} className="flex gap-3.5">
             <div className="flex flex-col items-center">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-text-muted">
-                <Icon width={15} height={15} />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-text-muted">
+                <Icon width={17} height={17} />
               </span>
               {!isLast && <span className="w-px flex-1 bg-border/40" />}
             </div>
-            <div className={isLast ? "" : "pb-5"}>
-              <p className="text-sm text-text">{activity.description}</p>
-              <p className="mt-0.5 text-xs text-text-muted">{formatRelativeDate(activity.timestamp)}</p>
+            <div className={isLast ? "" : "pb-6"}>
+              <p className="text-base text-text">{activity.description}</p>
+              <p className="mt-0.5 text-sm text-text-muted">{formatRelativeDate(activity.timestamp)}</p>
             </div>
           </li>
         );

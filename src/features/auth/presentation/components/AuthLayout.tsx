@@ -31,12 +31,12 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
 
         <div className="relative border-l-2 border-accent/60 pl-4">
           <h2 className="text-3xl font-semibold text-text">{title}</h2>
-          <p className="mt-2 max-w-sm text-sm text-text-muted">{subtitle}</p>
+          <p className="mt-2 max-w-sm text-base text-text-muted">{subtitle}</p>
         </div>
       </aside>
 
       <main className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
-        <div className="card-surface w-full max-w-md p-8">
+        <div className="card-surface w-full max-w-lg p-10">
           {children}
         </div>
       </main>

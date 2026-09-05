@@ -18,7 +18,7 @@ export function DashboardPage() {
   const { overview, loading } = useDashboardOverview();
 
   if (loading || !overview) {
-    return <p className="text-sm text-text-muted">Carregando dashboard...</p>;
+    return <p className="text-base text-text-muted">Carregando dashboard...</p>;
   }
 
   const { metrics } = overview;
@@ -38,13 +38,13 @@ export function DashboardPage() {
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <h1 className="text-2xl font-semibold text-text">Dashboard</h1>
-        <p className="mt-1 text-sm text-text-muted">Visão geral do escritório.</p>
+        <h1 className="text-3xl font-semibold text-text">Dashboard</h1>
+        <p className="mt-1.5 text-base text-text-muted">Visão geral do escritório.</p>
       </div>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-text">Precisa da sua atenção</h2>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="flex flex-col gap-3.5">
+        <h2 className="text-base font-semibold text-text">Precisa da sua atenção</h2>
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard label="Prazos vencidos" value={metrics.prazosVencidos} icon={ClockIcon} tone="danger" />
           <MetricCard label="Tarefas atrasadas" value={metrics.tarefasAtrasadas} icon={CheckSquareIcon} tone="danger" />
           <MetricCard label="Documentos pendentes" value={metrics.documentosPendentes} icon={FileIcon} tone="warning" />
@@ -52,25 +52,25 @@ export function DashboardPage() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-text">Visão geral</h2>
+      <section className="flex flex-col gap-3.5">
+        <h2 className="text-base font-semibold text-text">Visão geral</h2>
         <OverviewStatsGrid items={overviewStats} />
       </section>
 
       <div className="grid grid-cols-1 gap-8 xl:grid-cols-[1.4fr_1fr]">
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-text">Próximos prazos</h2>
+        <section className="flex flex-col gap-3.5">
+          <h2 className="text-xl font-semibold text-text">Próximos prazos</h2>
           <DeadlinesSection deadlines={overview.upcomingDeadlines} />
         </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-text">Atividades recentes</h2>
+        <section className="flex flex-col gap-3.5">
+          <h2 className="text-xl font-semibold text-text">Atividades recentes</h2>
           <ActivityFeed activities={overview.recentActivity} />
         </section>
       </div>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold text-text">Novos andamentos</h2>
+      <section className="flex flex-col gap-3.5">
+        <h2 className="text-xl font-semibold text-text">Novos andamentos</h2>
         <UpdatesSection updates={overview.recentUpdates} />
       </section>
     </div>

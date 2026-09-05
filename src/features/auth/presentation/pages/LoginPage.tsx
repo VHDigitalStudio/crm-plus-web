@@ -23,10 +23,10 @@ export function LoginPage() {
       title="Bem-vindo de volta"
       subtitle="Acesse sua conta para acompanhar processos, clientes e prazos em um só lugar."
     >
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
         <div>
-          <h1 className="text-2xl font-semibold text-text">Entrar</h1>
-          <p className="mt-1 text-sm text-text-muted">Informe seu e-mail e senha para continuar.</p>
+          <h1 className="text-3xl font-semibold text-text">Entrar</h1>
+          <p className="mt-1.5 text-base text-text-muted">Informe seu e-mail e senha para continuar.</p>
         </div>
 
         <TextField

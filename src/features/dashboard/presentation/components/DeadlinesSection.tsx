@@ -43,15 +43,15 @@ export function DeadlinesSection({ deadlines }: DeadlinesSectionProps) {
 
   return (
     <div className="card-surface overflow-x-auto">
-      <table className="w-full min-w-[680px] border-collapse text-sm">
+      <table className="w-full min-w-[720px] border-collapse text-base">
         <thead>
-          <tr className="text-left text-xs text-text-muted">
-            <th className="px-4 py-3 font-medium">Tarefa</th>
-            <th className="px-4 py-3 font-medium">Cliente</th>
-            <th className="px-4 py-3 font-medium">Responsável</th>
-            <th className="px-4 py-3 font-medium">Data limite</th>
-            <th className="px-4 py-3 font-medium">Prioridade</th>
-            <th className="px-4 py-3 font-medium">Situação</th>
+          <tr className="text-left text-sm text-text-muted">
+            <th className="px-5 py-3.5 font-medium">Tarefa</th>
+            <th className="px-5 py-3.5 font-medium">Cliente</th>
+            <th className="px-5 py-3.5 font-medium">Responsável</th>
+            <th className="px-5 py-3.5 font-medium">Data limite</th>
+            <th className="px-5 py-3.5 font-medium">Prioridade</th>
+            <th className="px-5 py-3.5 font-medium">Situação</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border/40">
@@ -60,15 +60,15 @@ export function DeadlinesSection({ deadlines }: DeadlinesSectionProps) {
               key={deadline.id}
               className={`border-l-2 transition-colors hover:bg-surface-elevated/40 ${SITUATION_STRIPE[deadline.situation]}`}
             >
-              <td className="px-4 py-3">
+              <td className="px-5 py-4">
                 <p className="font-medium text-text">{deadline.taskName}</p>
-                <p className="font-mono text-xs text-text-muted">{deadline.processNumber}</p>
+                <p className="font-mono text-sm text-text-muted">{deadline.processNumber}</p>
               </td>
-              <td className="px-4 py-3 text-text-muted">{deadline.clientName}</td>
-              <td className="px-4 py-3 text-text-muted">{deadline.responsible}</td>
-              <td className="px-4 py-3 tabular-nums text-text-muted">{formatDate(deadline.dueDate)}</td>
-              <td className="px-4 py-3 text-text-muted">{PRIORITY_LABEL[deadline.priority]}</td>
-              <td className="px-4 py-3">
+              <td className="px-5 py-4 text-text-muted">{deadline.clientName}</td>
+              <td className="px-5 py-4 text-text-muted">{deadline.responsible}</td>
+              <td className="px-5 py-4 tabular-nums text-text-muted">{formatDate(deadline.dueDate)}</td>
+              <td className="px-5 py-4 text-text-muted">{PRIORITY_LABEL[deadline.priority]}</td>
+              <td className="px-5 py-4">
                 <Badge variant={SITUATION_BADGE[deadline.situation].variant}>
                   {SITUATION_BADGE[deadline.situation].label}
                 </Badge>

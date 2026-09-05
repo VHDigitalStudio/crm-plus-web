@@ -16,7 +16,7 @@ export function Button({ variant = "primary", loading, disabled, className, chil
   return (
     <button
       className={[
-        "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition",
+        "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-base font-semibold transition",
         "disabled:cursor-not-allowed disabled:opacity-60",
         VARIANT_CLASSES[variant],
         className ?? "",

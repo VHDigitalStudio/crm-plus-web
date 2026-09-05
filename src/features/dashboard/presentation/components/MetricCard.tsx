@@ -19,13 +19,13 @@ const TONE_CLASSES: Record<MetricTone, string> = {
 
 export function MetricCard({ label, value, icon: Icon, tone = "neutral" }: MetricCardProps) {
   return (
-    <div className="card-surface flex items-center gap-3 p-4">
-      <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${TONE_CLASSES[tone]}`}>
-        <Icon width={18} height={18} />
+    <div className="card-surface flex items-center gap-4 p-5">
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${TONE_CLASSES[tone]}`}>
+        <Icon width={22} height={22} />
       </span>
       <div className="min-w-0">
-        <p className="text-xl font-semibold tabular-nums text-text">{value}</p>
-        <p className="truncate text-xs text-text-muted">{label}</p>
+        <p className="text-2xl font-semibold tabular-nums text-text">{value}</p>
+        <p className="truncate text-sm text-text-muted">{label}</p>
       </div>
     </div>
   );
