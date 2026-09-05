@@ -36,7 +36,7 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
       </aside>
 
       <main className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
-        <div className="w-full max-w-md rounded-2xl border border-border bg-surface-card p-8 shadow-xl shadow-black/30">
+        <div className="w-full max-w-md rounded-xl border border-border bg-surface-card p-8 shadow-xl shadow-black/30">
           {children}
         </div>
       </main>
