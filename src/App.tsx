@@ -27,7 +27,6 @@ export function App() {
               <AppShell />
             </RequireAuth>
 
-
           }
         >
           <Route path="/dashboard" element={<DashboardPage />} />
